@@ -6,7 +6,7 @@ from selenium.webdriver.chrome.options import Options
 from chromedriver_py import binary_path
 import time
 import yaml 
-
+import os 
 
 def send_log_info_to_streamlit(log_info, streamlit_url):
     # Set up Selenium WebDriver
@@ -30,7 +30,16 @@ def send_log_info_to_streamlit(log_info, streamlit_url):
     finally:
         driver.quit()
 
+
+def get_config_file_path():
+    script_dir = os.path.dirname(os.path.realpath(__file__))
+    config_file_name = "roku_controller_config.yaml"
+    config_file_path = os.path.join(script_dir, config_file_name)
+    return config_file_path
+
 def get_app_config():
-    with open("roku_controller_config.yaml") as f:
+    config_file_path = get_config_file_path()
+    print(config_file_path)
+    with open(config_file_path) as f:
         config = yaml.safe_load(f)
     return config
