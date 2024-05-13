@@ -39,7 +39,6 @@ def get_config_file_path():
 
 def get_app_config():
     config_file_path = get_config_file_path()
-    print(config_file_path)
     with open(config_file_path) as f:
         config = yaml.safe_load(f)
     return config
