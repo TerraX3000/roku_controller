@@ -10,9 +10,15 @@ import yaml
 
 def send_log_info_to_streamlit(log_info, streamlit_url):
     # Set up Selenium WebDriver
+    config = get_app_config()
+    chromedriver_path = config.get("chromedriver_path")
+    if chromedriver_path:
+        executable_path = chromedriver_path
+    else:
+        executable_path = binary_path
     chrome_options = Options()
     chrome_options.add_argument("--headless")  # Run Chrome in headless mode
-    service = webdriver.ChromeService(executable_path=binary_path)
+    service = webdriver.ChromeService(executable_path=executable_path)
     driver = webdriver.Chrome(service=service, options=chrome_options)
 
     try:
