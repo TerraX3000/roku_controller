@@ -2,9 +2,12 @@ from roku import Roku
 from typing import Dict, List, Union
 from time import sleep
 import argparse
+from utility_functions import get_app_config
 
 
-roku = Roku("192.168.1.55")
+config = get_app_config()
+roku_ip_address = config.get("roku_ip_address")
+roku = Roku(roku_ip_address)
 
 
 def run_diagnostics():
@@ -129,10 +132,10 @@ def run():
     if program in ["Program 1", "Program 2", "Program 3", "Program Loop"]:
         print("running dev channel")
         run_dev_channel(program)
-    elif program == "YouTube":
+    elif program == "Program 4":
         print(roku.active_app)
         run_youtube()
-    elif program == "Sling":
+    elif program == "Program 5":
         print(roku.active_app)
         sling_app = roku[46041]
         sling_app.launch()

@@ -10,6 +10,7 @@ config = get_app_config()
 roku_ip_address = config.get("roku_ip_address")
 roku = Roku(roku_ip_address)
 
+
 def add_heartbeat_log():
     config = get_app_config()
     logger_url = config.get("logger_url")
@@ -20,7 +21,7 @@ def add_heartbeat_log():
     log_entry = f"Roku Active App | {roku_active_app}"
     url = logger_url + "&log=" + log_entry
     print(url)
-    send_log_info_to_streamlit(log_entry, url)
+    send_log_info_to_streamlit(log_entry)
 
 
 add_heartbeat_log()
