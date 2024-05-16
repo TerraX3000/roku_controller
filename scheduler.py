@@ -2,7 +2,7 @@ from crontab import CronTab
 import requests
 import json
 import os
-from utility_functions import send_log_info
+from utility_functions import send_log_info, get_app_config
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -99,7 +99,8 @@ def add_cron_job(command, schedule, comment):
 
 
 def get_automation_schedule():
-    url = "https://riddleofthering.quest/app/static/automation_schedule.json"
+    config = get_app_config("")
+    url = config["schedule_url"]
     automation_schedule = json.loads(requests.get(url).content.decode())
     return automation_schedule
 
