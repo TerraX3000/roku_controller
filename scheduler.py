@@ -30,7 +30,7 @@ def get_saved_automation_schedule_path():
 def get_cron_job_command(
     python_command_path, python_script_path, arg_name=None, arg_value=None
 ):
-    command = f"{python_command_path} {python_script_path}'"
+    command = f"{python_command_path} {python_script_path}"
     if arg_name and arg_value:
         command = f"{command} --{arg_name} '{arg_value}'"
     return command
