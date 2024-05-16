@@ -51,7 +51,7 @@ def add_scheduler_cron_job():
     python_script_path = get_python_script_path("scheduler.py")
     command = get_cron_job_command(python_command_path, python_script_path)
     schedule = "*/5 * * * *"
-    comment = "roku_logger"
+    comment = "scheduler"
     add_cron_job(command, schedule, comment)
     return None
 
