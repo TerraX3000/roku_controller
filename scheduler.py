@@ -70,6 +70,7 @@ def remove_all_cron_jobs():
     cron = CronTab(user=True)
     for job in cron:
         cron.remove(job)
+    cron.write()
 
 
 def remove_cron_job(command, schedule):
