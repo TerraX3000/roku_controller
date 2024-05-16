@@ -99,7 +99,7 @@ def add_cron_job(command, schedule, comment):
 
 
 def get_automation_schedule():
-    config = get_app_config("")
+    config = get_app_config()
     url = config["schedule_url"]
     automation_schedule = json.loads(requests.get(url).content.decode())
     return automation_schedule
