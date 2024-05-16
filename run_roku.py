@@ -1,8 +1,7 @@
 from roku import Roku
-from typing import Dict, List, Union
 from time import sleep
 import argparse
-from utility_functions import get_app_config
+from utility_functions import get_app_config, send_log_info
 
 
 config = get_app_config()
@@ -127,6 +126,7 @@ def run():
     parser.add_argument("--program", dest="program", type=str, help="Add program")
     args = parser.parse_args()
     program = args.program
+    send_log_info(f"Running {program}")
     if program:
         print(program)
     if program in ["Program 1", "Program 2", "Program 3", "Program Loop"]:

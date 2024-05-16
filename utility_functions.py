@@ -9,7 +9,7 @@ import yaml
 import os
 
 
-def send_log_info_to_streamlit(log_entry):
+def send_log_info(log_entry):
     # Set up Selenium WebDriver
     config = get_app_config()
     logger_url = config.get("logger_url")
@@ -26,7 +26,7 @@ def send_log_info_to_streamlit(log_entry):
     driver = webdriver.Chrome(service=service, options=chrome_options)
 
     try:
-        # Open the Streamlit app
+        # Open the web app
         driver.get(url)
         # Wait for some time to ensure the request is completed
         time.sleep(5)

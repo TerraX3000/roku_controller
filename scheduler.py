@@ -2,7 +2,7 @@ from crontab import CronTab
 import requests
 import json
 import os
-from utility_functions import send_log_info_to_streamlit
+from utility_functions import send_log_info
 
 SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
 
@@ -156,7 +156,7 @@ def main():
         print("no schedule changes!")
 
     if any(list(log_entries.values())):
-        send_log_info_to_streamlit(json.dumps(log_entries))
+        send_log_info(json.dumps(log_entries))
 
 
 if __name__ == "__main__":
