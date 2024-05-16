@@ -116,16 +116,16 @@ def main():
         saved_schedule = json.load(f)
 
     automation_schedule = get_automation_schedule()
-    log_entries = {"new_program_found": 0, "program_deleted": 0, "jobs_added": 0}
+    log_entries = {"new_programs_added": 0, "programs_deleted": 0, "jobs_added": 0}
     schedule_changed = False
     for key in automation_schedule.keys():
         if key not in saved_schedule:
-            log_entries["new_program_found"] += 1
+            log_entries["new_programs_added"] += 1
             schedule_changed = True
 
     for key in saved_schedule.keys():
         if key not in automation_schedule:
-            log_entries["program_deleted"] += 1
+            log_entries["programs_deleted"] += 1
             schedule_changed = True
 
     if schedule_changed:
