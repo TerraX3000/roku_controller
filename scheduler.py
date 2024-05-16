@@ -4,6 +4,57 @@ import json
 import os
 from utility_functions import send_log_info_to_streamlit
 
+SCRIPT_DIR = os.path.dirname(os.path.realpath(__file__))
+
+
+def get_python_command_path():
+    python_venv_path = ".venv/bin/python3"
+    python_command_path = os.path.join(SCRIPT_DIR, python_venv_path)
+    return python_command_path
+
+
+def get_python_script_path(script_name):
+    python_script_name = script_name
+    python_script_path = os.path.join(SCRIPT_DIR, python_script_name)
+    return python_script_path
+
+
+def get_saved_automation_schedule_path():
+    saved_automation_schedule_file = "automation_schedule.json"
+    saved_automation_schedule_path = os.path.join(
+        SCRIPT_DIR, saved_automation_schedule_file
+    )
+    return saved_automation_schedule_path
+
+
+def get_cron_job_command(
+    python_command_path, python_script_path, arg_name=None, arg_value=None
+):
+    command = f"{python_command_path} {python_script_path}'"
+    if arg_name and arg_value:
+        command = f"{command} --{arg_name} '{arg_value}'"
+    return command
+
+
+def add_roku_logger_cron_job():
+    python_command_path = get_python_command_path()
+    python_script_path = get_python_script_path("roku_logging.py")
+    command = get_cron_job_command(python_command_path, python_script_path)
+    schedule = "*/10 * * * *"
+    comment = "roku_logger"
+    add_cron_job(command, schedule, comment)
+    return None
+
+
+def add_scheduler_cron_job():
+    python_command_path = get_python_command_path()
+    python_script_path = get_python_script_path("scheduler.py")
+    command = get_cron_job_command(python_command_path, python_script_path)
+    schedule = "*/5 * * * *"
+    comment = "roku_logger"
+    add_cron_job(command, schedule, comment)
+    return None
+
 
 def list_cron_jobs():
     cron = CronTab(user=True)
@@ -54,17 +105,7 @@ def get_automation_schedule():
 
 def main():
     # Example: add a job to run 'script.py' every day at 6 PM
-    script_dir = os.path.dirname(os.path.realpath(__file__))
-    python_venv_path = ".venv/bin/python3"
-    python_command_path = os.path.join(script_dir, python_venv_path)
-    python_script_name = "run_roku.py"
-    python_script_path = os.path.join(script_dir, python_script_name)
-    saved_automation_schedule_file = "automation_schedule.json"
-    saved_automation_schedule_path = os.path.join(
-        script_dir, saved_automation_schedule_file
-    )
-    print(python_command_path)
-    print(python_script_path)
+    saved_automation_schedule_path = get_saved_automation_schedule_path()
     if not os.path.exists(saved_automation_schedule_path):
         saved_schedule = {}
         with open(saved_automation_schedule_path, "w") as f:
@@ -89,18 +130,30 @@ def main():
     if schedule_changed:
         with open(saved_automation_schedule_path, "w") as f:
             json.dump(automation_schedule, f)
+
         remove_all_cron_jobs()
+        add_roku_logger_cron_job()
+        add_scheduler_cron_job()
+
+        python_command_path = get_python_command_path()
+        python_script_path = get_python_script_path("run_roku.py")
+
         for counter, job in enumerate(automation_schedule.values(), start=1):
             program = job["name"]
             schedule = job["schedule"]
             comment = job["uid"]
-            command = (
-                f"{python_command_path} {python_script_path} --program '{program}'"
+            command = get_cron_job_command(
+                python_command_path,
+                python_script_path,
+                arg_name="program",
+                arg_value=program,
             )
             add_cron_job(command, schedule, comment)
             log_entries["jobs_added"] = counter
+
     else:
         print("no schedule changes!")
+
     if any(list(log_entries.values())):
         send_log_info_to_streamlit(json.dumps(log_entries))
 
