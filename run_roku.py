@@ -79,8 +79,6 @@ def run_dev_channel(program):
 
 
 def run_youtube():
-    # roku.poweron()
-    # sleep(10)
     youtube_channel = roku["YouTube"]
     youtube_channel.launch()
     sleep(7)
@@ -125,14 +123,20 @@ def run():
         print("running dev channel")
         run_dev_channel(program)
     elif program == "Program 4":
+        roku.poweron()
+        sleep(10)
         pluto_app = roku[74519]
         pluto_app.launch()
         sleep(5)
         roku.down()
     elif program == "Program 5":
+        roku.poweron()
+        sleep(10)
         sling_app = roku[46041]
         sling_app.launch()
     elif program == "Program 6":
+        roku.poweron()
+        sleep(10)
         run_youtube()
     elif program == "Power Off":
         roku.poweroff()
