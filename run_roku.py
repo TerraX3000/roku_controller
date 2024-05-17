@@ -19,7 +19,6 @@ def run_diagnostics():
             app_functions.append(fn)
         print("====APP PROPERTIES AND FUNCTIONS====")
         print(" | ".join(app_functions))
-
         break
     print("=====ROKU COMMANDS====")
     print(roku.commands)
@@ -126,12 +125,13 @@ def run():
         print("running dev channel")
         run_dev_channel(program)
     elif program == "Program 4":
-        print(roku.active_app)
-        run_youtube()
+        pluto_app = roku[74519]
+        pluto_app.launch()
     elif program == "Program 5":
-        print(roku.active_app)
         sling_app = roku[46041]
         sling_app.launch()
+    elif program == "Program 6":
+        run_youtube()
     elif program == "Power Off":
         roku.poweroff()
 
