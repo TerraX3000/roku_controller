@@ -53,22 +53,16 @@ def run_dev_channel(program):
     if program == "Program 1":
         launch_dev_channel()
         roku.select()
-        sleep(10)
-        roku.poweroff()
 
     if program == "Program 2":
         launch_dev_channel()
         go_to_video(clicks=1, down_first=True)
         roku.select()
-        sleep(10)
-        roku.poweroff()
 
     if program == "Program 3":
         launch_dev_channel()
         go_to_video(clicks=2, down_first=True)
         roku.select()
-        sleep(10)
-        roku.poweroff()
 
     if program == "Program Loop":
         number_of_plays = 4
@@ -83,7 +77,6 @@ def run_dev_channel(program):
             sleep(10)
         roku.home()
         sleep(5)
-        roku.poweroff()
 
 
 def run_youtube():
@@ -126,8 +119,8 @@ def run():
     parser.add_argument("--program", dest="program", type=str, help="Add program")
     args = parser.parse_args()
     program = args.program
-    send_log_info(f"Running {program}")
     if program:
+        send_log_info(f"Running {program}")
         print(program)
     if program in ["Program 1", "Program 2", "Program 3", "Program Loop"]:
         print("running dev channel")
@@ -139,8 +132,8 @@ def run():
         print(roku.active_app)
         sling_app = roku[46041]
         sling_app.launch()
-        sleep(10)
-        print(roku.active_app)
+    elif program == "Power Off":
+        roku.poweroff()
 
     else:
         run_diagnostics()
