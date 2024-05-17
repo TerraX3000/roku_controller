@@ -127,6 +127,8 @@ def run():
     elif program == "Program 4":
         pluto_app = roku[74519]
         pluto_app.launch()
+        sleep(5)
+        roku.down()
     elif program == "Program 5":
         sling_app = roku[46041]
         sling_app.launch()
