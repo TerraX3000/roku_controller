@@ -127,10 +127,10 @@ def run():
         sleep(10)
         pluto_app = roku[74519]
         pluto_app.launch()
-        sleep(5)
-        roku.down()
-        sleep(1)
-        roku.select()
+        # sleep(5)
+        # roku.down()
+        # sleep(1)
+        # roku.select()
     elif program == "Program 5":
         roku.poweron()
         sleep(10)
