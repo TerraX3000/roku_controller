@@ -129,6 +129,8 @@ def run():
         pluto_app.launch()
         sleep(5)
         roku.down()
+        sleep(1)
+        roku.select()
     elif program == "Program 5":
         roku.poweron()
         sleep(10)
