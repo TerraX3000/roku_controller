@@ -142,7 +142,12 @@ def run():
         run_youtube()
     elif program == "Power Off":
         roku.poweroff()
-
+    elif program == "Volume Up":
+        roku.volume_up()
+    elif program == "Volume Down":
+        roku.volume_down()
+    elif program == "Volume Mute":
+        roku.volume_mute()
     else:
         run_diagnostics()
 
