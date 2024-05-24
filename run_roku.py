@@ -121,7 +121,6 @@ def run():
     print(sequence)
     if sequence:
         commands = sequence.split()
-        print(commands)
         for command in commands:
             if command == "Down":
                 roku.down()
@@ -140,6 +139,7 @@ def run():
             elif command == "Volume_Mute":
                 roku.volume_mute()
             sleep(1)
+        send_log_info(f"Running Sequence: {sequence}")
 
     if program:
         send_log_info(f"Running {program}")
