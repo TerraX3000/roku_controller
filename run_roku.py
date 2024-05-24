@@ -133,11 +133,11 @@ def run():
                 roku.left()
             elif command == "Select":
                 roku.select()
-            elif command == "Volume Up":
+            elif command == "Volume_Up":
                 roku.volume_up()
-            elif command == "Volume Down":
+            elif command == "Volume_Down":
                 roku.volume_down()
-            elif command == "Volume Mute":
+            elif command == "Volume_Mute":
                 roku.volume_mute()
             sleep(1)
 
