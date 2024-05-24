@@ -114,8 +114,33 @@ def run_youtube():
 def run():
     parser = argparse.ArgumentParser()
     parser.add_argument("--program", dest="program", type=str, help="Add program")
+    parser.add_argument("--sequence", dest="sequence", type=str, help="Add sequence")
     args = parser.parse_args()
     program = args.program
+    sequence = args.sequence
+    print(sequence)
+    if sequence:
+        commands = sequence.split()
+        print(commands)
+        for command in commands:
+            if command == "Down":
+                roku.down()
+            elif command == "Up":
+                roku.up()
+            elif command == "Right":
+                roku.right()
+            elif command == "Left":
+                roku.left()
+            elif command == "Select":
+                roku.select()
+            elif command == "Volume Up":
+                roku.volume_up()
+            elif command == "Volume Down":
+                roku.volume_down()
+            elif command == "Volume Mute":
+                roku.volume_mute()
+            sleep(1)
+
     if program:
         send_log_info(f"Running {program}")
         print(program)
@@ -148,7 +173,17 @@ def run():
         roku.volume_down()
     elif program == "Volume Mute":
         roku.volume_mute()
-    else:
+    elif program == "Down":
+        roku.down()
+    elif program == "Up":
+        roku.up()
+    elif program == "Right":
+        roku.right()
+    elif program == "Left":
+        roku.left()
+    elif program == "Select":
+        roku.select()
+    elif not sequence and not program:
         run_diagnostics()
 
 

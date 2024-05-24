@@ -141,14 +141,23 @@ def main():
         python_script_path = get_python_script_path("run_roku.py")
 
         for counter, job in enumerate(automation_schedule.values(), start=1):
-            program = job["name"]
-            schedule = job["schedule"]
-            comment = job["uid"]
+            program = job.get("name")
+            sequence = job.get("sequence")
+            schedule = job.get("schedule")
+            comment = job.get("uid")
+            arg_name = None
+            arg_value = None
+            if program:
+                arg_name = "program"
+                arg_value = program
+            if sequence:
+                arg_name = "sequence"
+                arg_value = sequence
             command = get_cron_job_command(
                 python_command_path,
                 python_script_path,
-                arg_name="program",
-                arg_value=program,
+                arg_name=arg_name,
+                arg_value=arg_value,
             )
             add_cron_job(command, schedule, comment)
             log_entries["jobs_added"] = counter
